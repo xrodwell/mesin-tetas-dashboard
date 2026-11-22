@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="id">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark"><meta name="theme-color" content="#13181b"><title>Mesin Tetas</title><link rel="stylesheet" href="monitor-v3.css"><link rel="icon" type="image/svg+xml" href="logo.svg"><script defer src="mqtt-5.10.1.min.js"></script><script defer src="monitor.js?v=2"></script></head>
+<body>
+<header class="mast"><div class="wrap bar"><img class="mark" src="logo.svg" alt="" width="42" height="42"><div><h1>Mesin Tetas</h1><p>Pemantauan suhu dan kelembapan</p></div></div></header>
+<main class="wrap">
+<div class="connection" role="status"><div><span>Broker MQTT</span><strong id="broker" data-tone="wait">Menghubungkan</strong></div><div><span>Data alat</span><strong id="device" data-tone="wait">Belum ada data</strong></div></div>
+<div class="console">
+<section aria-labelledby="reading"><h2 id="reading">Pembacaan sensor</h2>
+<div class="readings"><div class="primary"><div>Suhu terkini</div><p class="number"><span id="temp">--</span> <small>°C</small></p><p id="last" class="subtle">Menunggu pembacaan pertama.</p></div>
+<dl><div><dt>Kelembapan</dt><dd id="humidity">--</dd></div><div><dt>Target suhu dari alat</dt><dd id="target">--</dd></div><div><dt>Status alat</dt><dd id="power">Belum diketahui</dd></div></dl></div></section>
+<section aria-labelledby="control"><h2 id="control">Kontrol alat</h2>
+<form id="controls"><div class="control-row"><div><p class="control-title">Nyalakan atau matikan</p><p class="subtle" id="controlHint">Kontrol tersedia setelah alat mengirim data dan statusnya.</p></div><button type="button" id="toggle" disabled>ON/OFF</button></div>
+<div class="adjust"><div><label for="slider">Target manual</label><output id="draft" for="slider">37,5 °C</output></div><div class="range"><input id="slider" type="range" min="30" max="42" step="0.5" value="37.5" disabled><div class="limits" aria-hidden="true"><span>30 °C</span><span>42 °C</span></div><button id="apply" type="submit" disabled>Kirim target</button></div></div>
+<p id="notice" role="status" hidden></p></form></section>
+</div>
+<details><summary>Detail MQTT</summary><div class="details"><p>Broker meneruskan pesan antara dashboard dan ESP32. Topik menentukan pesan mana yang dibaca atau dikirim.</p><dl><div><dt>Alamat broker untuk browser</dt><dd><code id="endpoint">--</code></dd></div><div><dt>Data sensor · alat ke web</dt><dd><code>incubator/sensor/state</code></dd></div><div><dt>Perintah ON/OFF · web ke alat</dt><dd><code>incubator/control/power</code></dd></div><div><dt>Target suhu · web ke alat</dt><dd><code>incubator/control/setpoint</code></dd></div></dl></div></details>
+</main>
+</body></html>
